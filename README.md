@@ -6,7 +6,7 @@ I am in the progress of writing a report describing the rationale for this syste
 https://docs.google.com/document/d/1SyxgfXDGrWfLdb-O2y3Dr1Dh2Pc6roHdbGsgMLN4z3Q/edit?usp=sharing. 
 
 ## Getting Involved
-If you want to contribute to this project, please reach out to me at joel.happ1@ucalgary.ca. You are also invited to create GitHub issues if you just have small ideas, concerns, or suggestions!
+If you want to contribute to this project, please join our discord: https://discord.gg/UzACXw9yCe. You are also invited to create GitHub issues if you just have small ideas, concerns, or suggestions!
 
 I am particularly interested in getting in touch with people with the following skillsets:
 - Video editing
