@@ -1,16 +1,25 @@
 # Calgary-Transit-Reborn
-Maps and resources from my proposal for an overhaul of public transit
+Maps and resources from my proposal for an overhaul of public transit in Calgary
 
 ## Rationale
-I am in the progress of writing a report describing the rationale for this system. It's still WIP but you can see it here at:
+I am in the progress of writing a report describing the rationale for this system. It's still a WIP but you can see it here at:
 https://docs.google.com/document/d/1SyxgfXDGrWfLdb-O2y3Dr1Dh2Pc6roHdbGsgMLN4z3Q/edit?usp=sharing. 
 
 ## Getting Involved
-If you want to contribute to this project, please reach out to me at joel.happ1@ucalgary.ca. You are also invited to create GitHub issues if you just have small ideas, concerns, or suggestions! I can also be reached via LinkedIn at https://www.linkedin.com/in/joel-happ/
+If you want to contribute to this project, please join our discord: https://discord.gg/UzACXw9yCe. You are also invited to create GitHub issues if you just have small ideas, concerns, or suggestions!
+
+I am particularly interested in getting in touch with people with the following skillsets:
+- Video editing
+- Transit/transportation planning
+- Urban planning
+- Sketching / creating concept art
+
+I can also be reached via LinkedIn at https://www.linkedin.com/in/joel-happ/ or twitter at https://twitter.com/JoelHapp
 
 ## The Map
 For best viewing experience, download the map and use a photo editor or viewing software. This map is too large for most computer screens or pieces of paper, but could be very legible on larger billboards at transit stations.
-![](large_png_with_stations.png?raw=true)
+![](large_png_highcap.png?raw=true)
+![](large_png_lowcap.png?raw=true)
 
 ## How can I edit the maps?
 Every map and resource here is a .pdn file. To edit them, you'll need Paint.NET on your computer. [You can install Paint.NET here](https://www.getpaint.net/download.html#download),
@@ -40,13 +49,18 @@ The stationdot.pdn file contains everything you need to create stations. Here's 
 If you need to give stationdots a special outline to make them visible, I use the Glow Adjustment with the following settings: Radius 2, Brightness -100, Contrast 100
 
 ## Additional pictures
-Map without station names:
-![](map_no_station_names.png?raw=true)
 
-Heatmap
-(First circle represents 400m as the bird flies. Every additional color outwards represents another 200metres). 
-![](heatmap.png?raw=true)
+### Map without station names:
+High capital version:
+![](map_no_station_names_high.png?raw=true)
+Low capital version:
+![](map_no_station_names_low.png?raw=true)
 
-Pedestrian bridges
-![](ped_bridges.png?raw=true)
+
+### Heatmap
+(First circle represents 400m as the bird flies. Every additional color outwards represents another 200metres).
+High capital version:
+![](heatmap_highcap.png?raw=true)
+Low capital version:
+![](heatmap_lowcap.png?raw=true)
 
