@@ -1,9 +1,8 @@
 # Calgary-Transit-Reborn
-Maps and resources from my proposal for an overhaul of public transit in Calgary
+Maps and resources from my proposal for an overhaul of public transit in Calgary.
 
-## Rationale
-I am in the progress of writing a report describing the rationale for this system. It's still a WIP but you can see it here at:
-https://docs.google.com/document/d/1SyxgfXDGrWfLdb-O2y3Dr1Dh2Pc6roHdbGsgMLN4z3Q/edit?usp=sharing. 
+Read more about this proposal here:
+https://docs.google.com/document/d/1SyxgfXDGrWfLdb-O2y3Dr1Dh2Pc6roHdbGsgMLN4z3Q/edit?usp=sharing
 
 ## Getting Involved
 If you want to contribute to this project, please join our discord: https://discord.gg/UzACXw9yCe. You are also invited to create GitHub issues if you just have small ideas, concerns, or suggestions!
@@ -18,8 +17,12 @@ I can also be reached via LinkedIn at https://www.linkedin.com/in/joel-happ/ or 
 
 ## The Map
 For best viewing experience, download the map and use a photo editor or viewing software. This map is too large for most computer screens or pieces of paper, but could be very legible on larger billboards at transit stations.
-![](large_png_highcap.png?raw=true)
+
+Main Version:
 ![](large_png_lowcap.png?raw=true)
+
+High Capital Version (Fantasy, not up-to-date):
+![](large_png_highcap.png?raw=true)
 
 ## How can I edit the maps?
 Every map and resource here is a .pdn file. To edit them, you'll need Paint.NET on your computer. [You can install Paint.NET here](https://www.getpaint.net/download.html#download),
@@ -51,10 +54,11 @@ If you need to give stationdots a special outline to make them visible, I use th
 ## Additional pictures
 
 ### Map without station names:
-High capital version:
-![](map_no_station_names_high.png?raw=true)
 Low capital version:
 ![](map_no_station_names_low.png?raw=true)
+High capital version:
+![](map_no_station_names_high.png?raw=true)
+
 
 
 ### Heatmap
