@@ -1,11 +1,28 @@
 import pandas as pd
+import zipfile
 from datetime import datetime, timedelta
 
 # dataset = "calgary_transit_nov_2019"
-dataset = "calgary_transit_jan_24_2020"
-directory = f'src/datasets/{dataset}'
-output_dir = f'src/output/{dataset}'
+# dataset = "calgary_transit_jan_24_2020"
+dataset = "calgary_transit_jan_27_2021"
 
+# MUST ADJUST THESE FOR EACH RUN.
+# Check Calendar from GTFS
+# Pick from 1 date range. Regular weekdays: 1,1,1,1,1,0,0. Weekdays except Friday: 1,1,1,1,0,0,0
+
+# Nov 2019
+#regular_weekday_service_ids = ['2019SE-1BUSWK-Weekday-28']
+# Jan 24 2020
+# regular_weekday_service_id = '2019DE-1BUSWK-Weekday-01'
+# weekday_except_friday_service_id = '2019DE-1BUSWK-Weekday-01-1111000'
+# Jan 27 2021
+regular_weekday_service_id = '2020DE-1BUSWK-Weekday-02'
+weekday_except_friday_service_id = '2020DE-1BUSWK-Weekday-02-1111000'
+
+
+zip_data_dir = f'datasets/{dataset}.zip'
+output_dir = f'output/{dataset}'
+z_data = zipfile.ZipFile(zip_data_dir)
 
 FMT = '%H:%M:%S'
 def get_time(tstring: str) -> datetime:
@@ -20,8 +37,8 @@ def get_time(tstring: str) -> datetime:
         raise Exception(f'Unexpected error inside function get_time with time {tstring}')
 
 # Also saves them in dataset folder
-def get_trip_times_new(directory: str)-> pd.DataFrame:
-    stop_times_df = pd.read_csv(f'{directory}/stop_times.txt')
+def get_trip_times_new()-> pd.DataFrame:
+    stop_times_df = pd.read_csv(z_data.open('stop_times.txt'))
     grouped_stop_times = stop_times_df.groupby('trip_id')
     trip_time_columns = ['trip_id', 'duration (mins)', 'start_time', 'end_time', 'first_stop_id', 'last_stop_id']
     trip_times = pd.DataFrame(None, None, columns=trip_time_columns)
@@ -48,22 +65,18 @@ def get_trip_times_new(directory: str)-> pd.DataFrame:
 
     return trip_times
 
-# For trip times which have already been generated into directory folder
+# For trip times which have already been generated into output folder
 def get_trip_times_old(output_dir: str)->pd.DataFrame:
     return pd.read_csv(f'{output_dir}/trip_times.txt')
 
-# trip_times = get_trip_times_new(directory)
-trip_times = get_trip_times_old(output_dir)
-# print(new_df.iloc[0])
-# print("generated:")
-# print(gen_df.iloc[0])
+# Toggle between new and old as necessary. Will need to run new first time. But running new is expensive so should run old on any subsequent runs.
+trip_times = get_trip_times_new()
+# trip_times = get_trip_times_old(output_dir)
 
-trips = pd.read_csv(f'{directory}/trips.txt')
+trips = pd.read_csv(z_data.open('trips.txt'))
 trip_times_with_trip_info = trip_times.merge(trips, on='trip_id')
 trip_times_with_trip_info.sort_values(by=['route_id', 'start_time'], inplace=True)
-#regular_weekday_service_ids = ['2019SE-1BUSWK-Weekday-28']
-regular_weekday_service_id = '2019DE-1BUSWK-Weekday-01'
-weekday_except_friday_service_id = '2019DE-1BUSWK-Weekday-01-1111000'
+
 indexes_matching_service_id = trip_times_with_trip_info[trip_times_with_trip_info['service_id'] == regular_weekday_service_id].index
 indexes_matching_weekday_sans_friday = trip_times_with_trip_info[trip_times_with_trip_info['service_id'] == weekday_except_friday_service_id].index
 matching_indexes = indexes_matching_service_id.union(indexes_matching_weekday_sans_friday)
@@ -76,9 +89,8 @@ trip_times_with_trip_info.to_csv(f'{output_dir}/trip_times_with_trip_info.txt', 
 grouped_by_route_id = trip_times_with_trip_info.groupby('route_id')
 route_op_minutes: pd.DataFrame = grouped_by_route_id['duration (mins)'].sum().to_frame()
 route_op_minutes.rename(columns={'duration (mins)': 'operating mins'}, inplace=True)
-routes = pd.read_csv(f'{directory}/routes.txt')
+routes = pd.read_csv(z_data.open('routes.txt'))
 route_op_minutes_w_route_info = route_op_minutes.merge(routes, on='route_id')
-route_op_minutes_w_route_info.to_csv(f'{directory}/route_operating_minutes.txt')
 route_op_minutes_w_route_info['route_short_name'] = pd.to_numeric(route_op_minutes_w_route_info['route_short_name'])
 dropped_above500 = route_op_minutes_w_route_info.drop(route_op_minutes_w_route_info[route_op_minutes_w_route_info['route_short_name'] >= 500].index)
 sorted_route_op_mins = dropped_above500.sort_values(by='route_short_name')
