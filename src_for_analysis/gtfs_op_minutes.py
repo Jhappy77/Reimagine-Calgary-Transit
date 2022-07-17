@@ -2,22 +2,31 @@ import pandas as pd
 import zipfile
 from datetime import datetime, timedelta
 
+############### PARAMETERS. MUST BE SET TO RUN NEW DATASET.
+
 # dataset = "calgary_transit_nov_2019"
-# dataset = "calgary_transit_jan_24_2020"
-dataset = "calgary_transit_jan_27_2021"
+dataset = "calgary_transit_jan_24_2020"
+# dataset = "calgary_transit_jan_27_2021"
+
+# True: this is the first time running this dataset. 
+# False: isn't. Saves time
+first_run = True
 
 # MUST ADJUST THESE FOR EACH RUN.
 # Check Calendar from GTFS
 # Pick from 1 date range. Regular weekdays: 1,1,1,1,1,0,0. Weekdays except Friday: 1,1,1,1,0,0,0
 
 # Nov 2019
-#regular_weekday_service_ids = ['2019SE-1BUSWK-Weekday-28']
+# regular_weekday_service_id = '2019SE-1BUSWK-Weekday-28'
+# weekday_except_friday_service_id = '2019SE-1BUSWK-Weekday-28-1111000'
 # Jan 24 2020
-# regular_weekday_service_id = '2019DE-1BUSWK-Weekday-01'
-# weekday_except_friday_service_id = '2019DE-1BUSWK-Weekday-01-1111000'
+regular_weekday_service_id = '2019DE-1BUSWK-Weekday-01'
+weekday_except_friday_service_id = '2019DE-1BUSWK-Weekday-01-1111000'
 # Jan 27 2021
-regular_weekday_service_id = '2020DE-1BUSWK-Weekday-02'
-weekday_except_friday_service_id = '2020DE-1BUSWK-Weekday-02-1111000'
+# regular_weekday_service_id = '2020DE-1BUSWK-Weekday-02'
+# weekday_except_friday_service_id = '2020DE-1BUSWK-Weekday-02-1111000'
+
+############### END OF PARAMETERS
 
 
 zip_data_dir = f'datasets/{dataset}.zip'
@@ -69,9 +78,28 @@ def get_trip_times_new()-> pd.DataFrame:
 def get_trip_times_old(output_dir: str)->pd.DataFrame:
     return pd.read_csv(f'{output_dir}/trip_times.txt')
 
+def calc_headways_by_hour(df: pd.DataFrame, combined: bool):
+    df['end_hr'] = df.apply(lambda row: row.end_time.split(':')[0], axis=1)
+    grouped: pd.DataFrameGroupBy
+    if combined:
+        grouped = df.groupby(['route_id', 'end_hr'])
+    else:
+        grouped = df.groupby(['route_id', 'end_hr', 'trip_headsign'])
+    buses_by_hour = grouped['trip_id'].count().to_frame()
+    buses_by_hour.rename(columns={'trip_id': 'buses per hour'}, inplace=True)
+    buses_by_hour['headway by hour'] = buses_by_hour.apply(lambda row: 60/row['buses per hour'], axis=1)
+    if combined:
+        buses_by_hour.to_csv(f'{output_dir}/headway_by_hour_combined.txt')
+    else:
+        buses_by_hour.to_csv(f'{output_dir}/headway_by_hour_split.txt')
+
+
 # Toggle between new and old as necessary. Will need to run new first time. But running new is expensive so should run old on any subsequent runs.
-trip_times = get_trip_times_new()
-# trip_times = get_trip_times_old(output_dir)
+trip_times: pd.DataFrame
+if first_run:
+    trip_times = get_trip_times_new()
+else:
+    trip_times = get_trip_times_old(output_dir)
 
 trips = pd.read_csv(z_data.open('trips.txt'))
 trip_times_with_trip_info = trip_times.merge(trips, on='trip_id')
@@ -85,15 +113,19 @@ trip_times_with_trip_info.drop(indexes_that_dont_match, inplace=True)
 
 trip_times_with_trip_info.to_csv(f'{output_dir}/trip_times_with_trip_info.txt', index=False)
 
+calc_headways_by_hour(trip_times_with_trip_info, True)
+calc_headways_by_hour(trip_times_with_trip_info, False)
 
 grouped_by_route_id = trip_times_with_trip_info.groupby('route_id')
-route_op_minutes: pd.DataFrame = grouped_by_route_id['duration (mins)'].sum().to_frame()
-route_op_minutes.rename(columns={'duration (mins)': 'operating mins'}, inplace=True)
+number_buses = grouped_by_route_id.size()
+route_op_minutes: pd.DataFrame = grouped_by_route_id.agg(operating_mins=('duration (mins)', 'sum'))   #['duration (mins)'].sum().to_frame()
+op_info = route_op_minutes.merge(number_buses.rename('trip_count'), on='route_id')
+
 routes = pd.read_csv(z_data.open('routes.txt'))
-route_op_minutes_w_route_info = route_op_minutes.merge(routes, on='route_id')
+route_op_minutes_w_route_info = op_info.merge(routes, on='route_id')
 route_op_minutes_w_route_info['route_short_name'] = pd.to_numeric(route_op_minutes_w_route_info['route_short_name'])
 dropped_above500 = route_op_minutes_w_route_info.drop(route_op_minutes_w_route_info[route_op_minutes_w_route_info['route_short_name'] >= 500].index)
 sorted_route_op_mins = dropped_above500.sort_values(by='route_short_name')
 sorted_route_op_mins.to_csv(f'{output_dir}/route_operating_minutes.txt', index=False)
-sum = sorted_route_op_mins['operating mins'].sum()
-print(f'Total operating minutes: {sum}')
+
+print(f'Successfully processed files in {dataset} and outputted to {output_dir}')
