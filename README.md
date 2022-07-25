@@ -1,6 +1,6 @@
-# Calgary-Transit-Reborn
+# About
 
-Maps and resources from my proposal for an overhaul of public transit in Calgary.
+This repo contains maps and resources from my proposal for an overhaul of public transit in Calgary.
 
 Read more about this proposal here:
 https://docs.google.com/document/d/1SyxgfXDGrWfLdb-O2y3Dr1Dh2Pc6roHdbGsgMLN4z3Q/edit?usp=sharing
