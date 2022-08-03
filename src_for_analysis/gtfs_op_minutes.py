@@ -4,10 +4,12 @@ from datetime import datetime, timedelta
 
 ############### PARAMETERS. MUST BE SET TO RUN NEW DATASET.
 
+dataset = "calgary_transit_sep_5_2019"
 # dataset = "calgary_transit_nov_2019"
 # dataset = "calgary_transit_jan_24_2020"
 # dataset = "calgary_transit_jan_27_2021"
-dataset = "calgary_transit_jul_27_2022"
+# dataset = "calgary_transit_jul_27_2022"
+
 
 # True: this is the first time running this dataset. 
 # False: isn't. Saves time
@@ -17,6 +19,9 @@ first_run = True
 # Check Calendar from GTFS
 # Pick from 1 date range. Regular weekdays: 1,1,1,1,1,0,0. Weekdays except Friday: 1,1,1,1,0,0,0
 
+# Sep 5 2019
+regular_weekday_service_id = '2019SE-1BUSWKa-Weekday-05'
+weekday_except_friday_service_id = '2019SE-1BUSWKa-Weekday-05-1111000'
 # Nov 2019
 # regular_weekday_service_id = '2019SE-1BUSWK-Weekday-28'
 # weekday_except_friday_service_id = '2019SE-1BUSWK-Weekday-28-1111000'
@@ -27,8 +32,8 @@ first_run = True
 # regular_weekday_service_id = '2020DE-1BUSWK-Weekday-02'
 # weekday_except_friday_service_id = '2020DE-1BUSWK-Weekday-02-1111000'
 # Jul 27 2022
-regular_weekday_service_id = '2022JU-1BUSWK-Weekday-02'
-weekday_except_friday_service_id = 'None'
+# regular_weekday_service_id = '2022JU-1BUSWK-Weekday-02'
+# weekday_except_friday_service_id = 'None'
 
 
 ############### END OF PARAMETERS
