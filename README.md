@@ -22,8 +22,11 @@ I can also be reached via LinkedIn at https://www.linkedin.com/in/joel-happ/ or 
 
 For best viewing experience, download the map and use a photo editor or viewing software. This map is too large for most computer screens or pieces of paper, but could be very legible on larger billboards at transit stations.
 
-Main Version:
+Low Capital Version:
 ![](main_maps/large_png_lowcap.png?raw=true)
+
+Simplified Version:
+![](main_maps/large_png_simplified.png?raw=true)
 
 High Capital Version:
 ![](main_maps/large_png_highcap.png?raw=true)
@@ -44,18 +47,12 @@ Low capital version:
 ![](main_maps/no_station_names_low.png?raw=true)
 High capital version:
 ![](main_maps/no_station_names_high.png?raw=true)
+Simplified version:
+![](main_maps/no_station_names_simplified.png?raw=true)
 
 ### Pedestrian crossings:
 
 ![](main_maps/pedestrian_crossings.png?raw=true)
-
-### Heatmap
-
-(First circle represents 400m as the bird flies. Every additional color outwards represents another 200metres).
-High capital version:
-![](main_maps/heatmap_highcap.png?raw=true)
-Low capital version:
-![](main_maps/heatmap_lowcap.png?raw=true)
 
 ### Potential future heavy rail line in Bow Valley
 
@@ -66,3 +63,11 @@ Low capital version:
 ![](urban_form_diagrams/bus_lines.png?raw=true)
 ![](urban_form_diagrams/transit_walking_radius.png?raw=true)
 ![](urban_form_diagrams/bike_paths.png?raw=true)
+
+### Heatmap
+
+(First circle represents 400m as the bird flies. Every additional color outwards represents another 200metres).
+High capital version:
+![](main_maps/heatmap_highcap.png?raw=true)
+Low capital version:
+![](main_maps/heatmap_lowcap.png?raw=true)
