@@ -1,4 +1,5 @@
 import pandas as pd
+import os
 import zipfile
 from datetime import datetime, timedelta
 
@@ -9,11 +10,11 @@ from datetime import datetime, timedelta
 # dataset = "calgary_transit_jan_24_2020"
 # dataset = "calgary_transit_jan_27_2021"
 # dataset = "calgary_transit_jul_27_2022"
-dataset = "calgary_transit_sep_21_2022"
+dataset = "calgary_transit_dec_6_2022"
 
 # True: this is the first time running this dataset. 
 # False: isn't. Saves time
-first_run = True
+first_run = False
 
 # MUST ADJUST THESE FOR EACH RUN.
 # Check Calendar from GTFS
@@ -35,8 +36,11 @@ first_run = True
 # regular_weekday_service_id = '2022JU-1BUSWK-Weekday-02'
 # weekday_except_friday_service_id = 'None'
 # Sept 21 2022
-regular_weekday_service_id = '2022SE-1BUSWK-Weekday-03'
-weekday_except_friday_service_id = '2022SE-1BUSWK-Weekday-03-1111000'
+# regular_weekday_service_id = '2022SE-1BUSWK-Weekday-03'
+# weekday_except_friday_service_id = '2022SE-1BUSWK-Weekday-03-1111000'
+# Dec 6 2022
+regular_weekday_service_id = '2022DE-1BUSWK-Weekday-03'
+
 
 ############### END OF PARAMETERS
 
@@ -44,6 +48,8 @@ weekday_except_friday_service_id = '2022SE-1BUSWK-Weekday-03-1111000'
 zip_data_dir = f'datasets/{dataset}.zip'
 output_dir = f'output/{dataset}'
 z_data = zipfile.ZipFile(zip_data_dir)
+if first_run:
+    os.mkdir(output_dir)
 
 FMT = '%H:%M:%S'
 def get_time(tstring: str) -> datetime:
@@ -118,9 +124,9 @@ trip_times_with_trip_info = trip_times.merge(trips, on='trip_id')
 trip_times_with_trip_info.sort_values(by=['route_id', 'start_time'], inplace=True)
 
 indexes_matching_service_id = trip_times_with_trip_info[trip_times_with_trip_info['service_id'] == regular_weekday_service_id].index
-indexes_matching_weekday_sans_friday = trip_times_with_trip_info[trip_times_with_trip_info['service_id'] == weekday_except_friday_service_id].index
-matching_indexes = indexes_matching_service_id.union(indexes_matching_weekday_sans_friday)
-indexes_that_dont_match = trip_times_with_trip_info.index.difference(matching_indexes)
+# indexes_matching_weekday_sans_friday = trip_times_with_trip_info[trip_times_with_trip_info['service_id'] == weekday_except_friday_service_id].index
+# matching_indexes = indexes_matching_service_id.union(indexes_matching_weekday_sans_friday)
+indexes_that_dont_match = trip_times_with_trip_info.index.difference(indexes_matching_service_id)
 trip_times_with_trip_info.drop(indexes_that_dont_match, inplace=True)
 
 trip_times_with_trip_info.to_csv(f'{output_dir}/trip_times_with_trip_info.txt', index=False)
