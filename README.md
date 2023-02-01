@@ -22,13 +22,13 @@ I can also be reached via LinkedIn at https://www.linkedin.com/in/joel-happ/ or 
 
 For best viewing experience, download the map and use a photo editor or viewing software. This map is too large for most computer screens or pieces of paper, but could be very legible on larger billboards at transit stations.
 
-Low Capital Version:
-![](main_maps/large_png_lowcap.png?raw=true)
+Basic Version:
+![](main_maps/large_png_basic.png?raw=true)
 
-Simplified Version:
-![](main_maps/large_png_simplified.png?raw=true)
+Advanced Version:
+![](main_maps/large_png_advanced.png?raw=true)
 
-High Capital Version:
+High Capital (Advanced++) Version:
 ![](main_maps/large_png_highcap.png?raw=true)
 
 ## How can I edit the maps?
@@ -43,12 +43,12 @@ The station dots also exist on a separate layer, along with other things like pl
 
 ### Maps without station names:
 
-Low capital version:
-![](main_maps/no_station_names_low.png?raw=true)
-High capital version:
+Basic version:
+![](main_maps/no_station_names_basic.png?raw=true)
+Advanced version:
+![](main_maps/no_station_names_advanced.png?raw=true)
+High capital (Advanced++) version:
 ![](main_maps/no_station_names_high.png?raw=true)
-Simplified version:
-![](main_maps/no_station_names_simplified.png?raw=true)
 
 ### Pedestrian crossings:
 
