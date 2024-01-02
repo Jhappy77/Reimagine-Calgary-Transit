@@ -23,7 +23,7 @@ I can also be reached via LinkedIn at https://www.linkedin.com/in/joel-happ/ or 
 For best viewing experience, download the map and use a photo editor or viewing software. This map is too large for most computer screens or pieces of paper, but could be very legible on larger billboards at transit stations.
 
 Basic Version:
-![](main_maps/large_png_basic.png?raw=true)
+![](main_maps/large_png_basic_cut.png?raw=true)
 
 Advanced Version:
 ![](main_maps/large_png_advanced.png?raw=true)
@@ -44,10 +44,10 @@ The station dots also exist on a separate layer, along with other things like pl
 ### Maps without station names:
 
 Basic version:
-![](main_maps/no_station_names_basic.png?raw=true)
+![](main_maps/no_station_names_basic_cut.png?raw=true)
 Advanced version:
 ![](main_maps/no_station_names_advanced.png?raw=true)
-High capital (Advanced++) version:
+High capital (Advanced++) version (out of date, unrealistic):
 ![](main_maps/no_station_names_high.png?raw=true)
 
 ### Pedestrian crossings:
@@ -64,10 +64,3 @@ High capital (Advanced++) version:
 ![](urban_form_diagrams/transit_walking_radius.png?raw=true)
 ![](urban_form_diagrams/bike_paths.png?raw=true)
 
-### Heatmap
-
-(First circle represents 400m as the bird flies. Every additional color outwards represents another 200metres).
-High capital version:
-![](main_maps/heatmap_highcap.png?raw=true)
-Low capital version:
-![](main_maps/heatmap_lowcap.png?raw=true)
